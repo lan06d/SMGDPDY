@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'logosena.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/menuAd.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <title>Barra Lateral con Bootstrap</title>
+
+    <style>
+      .separar-boton {
+        margin-bottom: 10px; /* Ajusta el valor a lo que necesites */
+      }
+    </style>
+  </head>
+
+  <body>
+    {% block menu %}
+
+    {% endblock %}
+    <div class="wrapper">
+      <aside id="sidebar">
+        <div class="h-100">
+          <div class="sidebar-logo">
+            <a href="#">SENA METALMECANICO</a>
+          </div>
+          <ul class="sidebar-nav">
+            <li class="sidebar-header">Gestión de Entidades</li>
+
+            <!-- Unidades de Programación -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#unidades" aria-expanded="false" aria-controls="unidades">
+                <i class="fa-solid fa-user pe-2"></i>
+                Unidades de Programación
+              </a>
+              <ul id="unidades" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'EnviarCorreosInstru' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Enviar correos -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#correos" aria-expanded="false" aria-controls="correos">
+                <i class="fa-solid fa-envelope pe-2"></i>
+                Enviar correos
+              </a>
+              <ul id="correos" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'EnviarCorreosInstru' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Configuración -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#configuracion" aria-expanded="false" aria-controls="configuracion">
+                <i class="fa-solid fa-cogs pe-2"></i> <!-- Icono de configuración -->
+                Configuración
+              </a>
+              <ul id="configuracion" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'PreEditarPerfil' %}" class="sidebar-link"><i class="fa-solid fa-user-edit"></i> Editar Perfil</a>
+                </li>
+
+                <li class="sidebar-item">
+                  <a href="{% url 'CambiarContrasena' %}" class="sidebar-link"><i class="fa-solid fa-key"></i> Cambiar Contraseña</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="sidebar-item">
+              <a href="{% url 'cerrar_sesion' %}" class="sidebar-link">
+                <i class="fa-solid fa-sign-out-alt pe-2"></i>
+                Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="main">
+        <nav class="navbar navbar-expand px-3 border-bottom">
+          <button class="btn bg-success" type="button" data-bs-theme="dark"><span class="navbar-toggler-icon"></span></button>
+          <form class="search-form d-flex ms-auto" role="search" method="GET" action="{% url 'vistaFichasInstUnidadProgramacion' %}">
+            <input class="form-control me-2" type="search" placeholder="Buscar por el número de ficha" name="ficha_numero" value="{{ ficha_numero|default_if_none:'' }}" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+          
+        </nav>
+
+        {% if messages %}
+          <div class="alert-container">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="container mt-4">
+          <h2>Unidades de Programación Asignadas</h2>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Unidad de Programación</th>
+                <th>Ficha Asociada</th>
+                <th>Acistencia</th>
+                <th>Aprendices</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for unidad in unidades_programacion %}
+                <tr>
+                  <td>{{ unidad.unidad_programacion }}</td>
+                  <td>{{ unidad.ficha.numero }}</td>
+                  <td>
+                    <!-- Botón de preregistrar asistencias -->
+                    <a href="{% url 'preregistrar_asistencia' unidad.ficha.numero unidad.id %}" class="btn btn-success btn-sm separar-boton">Registrar Asistencias</a>
+                    <!-- Botón de listar asistencias -->
+                    <a href="{% url 'listar_asistencias_ficha' unidad.ficha.numero unidad.id %}" class="btn btn-success btn-sm separar-boton">Listar Asistencias</a>
+                  </td>
+
+                  <td>
+                    <a href="{% url 'listar_aprendices' unidad.ficha.numero unidad.id %}" class="btn btn-success btn-sm">Listar Aprendices</a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="3" class="text-center">No tienes unidades de programación asignadas.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script>
+      const toggler = document.querySelector('.btn')
+      toggler.addEventListener('click', function () {
+        document.querySelector('#sidebar').classList.toggle('collapsed')
+      })
+    </script>
+  </body>
+</html>

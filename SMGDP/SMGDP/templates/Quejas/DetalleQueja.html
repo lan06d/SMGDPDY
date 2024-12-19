@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informe o Queja SENA</title>
+    <style>
+      /* Estilo general del documento */
+      body {
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+      }
+      
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      h1,
+      h2 {
+        text-align: center;
+        color: #2d2d2d;
+      }
+      
+      h3 {
+        color: #555;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .section {
+        margin-bottom: 30px;
+      }
+      
+      /* Estilo de tabla */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+      
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      
+      td {
+        background-color: #ffffff;
+      }
+      
+      /* Estilo de firma */
+      .firmas {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+      }
+      
+      .firma {
+        width: 45%;
+        height: 50px;
+        border: 1px solid #000;
+        text-align: center;
+        line-height: 50px;
+        font-style: italic;
+        color: #555;
+      }
+      
+      /* Botón de enviar (si se requiere en la página web) */
+      .btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        display: block;
+        margin-top: 30px;
+        width: 100%;
+      }
+      
+      .btn:hover {
+        background-color: #45a049;
+      }
+      
+      /* Diseño responsivo para dispositivos móviles */
+      @media print {
+        body {
+          font-size: 12pt;
+        }
+        .container {
+          width: 100%;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Título principal -->
+      <h1>Servicio Nacional de Aprendizaje SENA</h1>
+      <h2>Informe o Queja por Faltas Académicas y/o Disciplinarias del Aprendiz</h2>
+      <h3>Centro de Formación: Centro Metalmecánico</h3>
+
+      <!-- Información del centro -->
+      <div class="section">
+        <p>
+          <strong>Motivo de la Queja:</strong> {{ queja.motivo }}
+        </p>
+        <p>
+          <strong>Regional:</strong> {{ queja.regional }}
+        </p>
+        <p>
+          <strong>Fecha de Registro:</strong> {{ queja.fecha_registro }}
+        </p>
+      </div>
+
+      <!-- Detalles de la Queja -->
+      <div class="section">
+        <h3>Detalles de la Queja</h3>
+        <table>
+          <tr>
+            <th>Campo</th>
+            <th>Detalle</th>
+          </tr>
+          <tr>
+            <td>
+              <strong>Ficha del aprendiz</strong>
+            </td>
+            <td>{{ queja.aprendiz.ficha.numero }}</td>Jornada:	
+          </tr>
+          <tr>
+            <td>
+              <strong>Jornada de la ficha</strong>
+            </td>
+            <td>{{ queja.aprendiz.ficha.jornada.nombre_jornada  }}</td>	
+          </tr>
+          <tr>
+            <td>
+              <strong>Programa de Formación</strong>
+            </td>
+            <td>{{ queja.aprendiz.ficha.programa.nombre_programa }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Aprendiz</strong>
+            </td>
+            <td>{{ queja.aprendiz.nombres }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>E-mail del aprendiz</strong>
+            </td>
+            <td>{{ queja.aprendiz.correo }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Teléfono del aprendiz</strong>
+            </td>
+            <td>{{ queja.aprendiz.telefono }}</td>Identificación
+          </tr>
+          <tr>
+            <td>
+              <strong>Identificación del aprendiz</strong>
+            </td>
+            <td>{{ queja.aprendiz.tipo_documento }} {{ queja.aprendiz.no_documento }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Centro de Formación</strong>
+            </td>
+            <td>{{ queja.centro_formacion }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Estado del Contrato</strong>
+            </td>
+            <td>
+              {% if queja.estado_contrato_aprendizaje %}
+                Activo
+              {% else %}
+                Inactivo
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Observaciones del Instructor</strong>
+            </td>
+            <td>{{ queja.observacion_instructor }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Situación de Riesgo</strong>
+            </td>
+            <td>{{ queja.situacion_riesgo }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Causas Origen de Riesgo</strong>
+            </td>
+            <td>{{ queja.causas_origen_riesgo }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Escaló Riesgo</strong>
+            </td>
+            <td>{{ queja.escalo_riesgo }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Acciones Ruta Aprendiz</strong>
+            </td>
+            <td>{{ queja.acciones_ruta_apren }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Correo Vocero</strong>
+            </td>
+            <td>{{ queja.correo_vocero }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Firmas -->
+      <div class="firmas">
+        <div class="firma"></div>
+        <div class="firma"></div>
+      </div>
+
+      <!-- Botón para acción (si es necesario) -->
+    </div>
+  </body>
+</html>

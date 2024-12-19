@@ -1,0 +1,87 @@
+<!-- instrutor/RegistrarAsistencia.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asistencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .full-height {
+            height: 100vh;
+        }
+        .centered-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center full-height">
+
+    <div class="container centered-container">
+        <h2 class="mb-4 text-center">Registro de Asistencia - Ficha {{ ficha.numero }}</h2>
+        <p class="text-center"><strong>Unidad de Programación: {{ unidad_programacion.unidad_programacion }} </strong></p>
+
+        <!-- Ajuste en el formulario para enviar datos a la URL correspondiente -->
+        <form action="{% url 'registrar_asistencia' ficha.numero unidad_programacion.id %}" method="post">
+            {% csrf_token %}
+            
+            <!-- Campo de observaciones -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="observaciones" class="form-label">Observaciones </label>
+                    <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <!-- Tabla de aprendices y selección de asistencia -->
+            <table class="table table-bordered mb-3">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Estado</th>
+                        <th>Asistencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aprendiz in aprendices %}
+                        <tr>
+                            <td>{{ aprendiz.nombres }}</td>
+                            <td>{{ aprendiz.apellidos }}</td>
+                            <td>{{ aprendiz.estado_academico_sofia.estado }}</td>
+                            <td>
+                                <!-- Selector para el estado de asistencia -->
+                                <select class="form-select" name="asistencia_{{ aprendiz.id }}">
+                                    {% for estado in estadoAsistencias %}
+                                        <option value="{{ estado.id }}">{{ estado.estado_asistencia }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- Botón para guardar la asistencia -->
+            <div class="d-flex justify-content-end mb-3">
+                <button type="submit" class="btn btn-success">Guardar Asistencia</button>
+            </div>
+            
+            <!-- Botón para regresar a la página anterior -->
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-success" onclick="window.history.back();">Regresar</button>
+            </div>
+        </form>
+        
+        <!-- Convenciones de asistencia -->
+        <div class="mt-4">
+            <p><strong>CONVENCIONES</strong></p>
+            <p>A: Asistencia | I: Inasistencia sin excusa | IS: Inasistencia sin excusa registrada en Sofia Plus | IE: Inasistencia con excusa | IES: Inasistencia con excusa registrada en Sofia Plus</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

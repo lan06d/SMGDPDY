@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="icon" href="{% static 'logosena.png' %}" />
+    <title>Registro de Estados Academico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+      .full-height {
+        height: 100vh;
+      }
+    </style>
+    <link rel="icon" href="assets/logosena.png" />
+  </head>
+
+  <body class="d-flex justify-content-center align-items-center full-height">
+    <section class="col-md-6 col-lg-4">
+      {% if messages %}
+        <div class="container">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="row border rounded-5 shadow p-4">
+        <h3 class="text-center mb-4">Registro de Estado Academico</h3>
+        <form class="container" method="POST" action="{% url 'RegistroEstadosAcademicos' %}">
+          {% csrf_token %}
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating mb-3">
+                <select class="form-select" id="Academico" name="Academico">
+                  <option value="" selected disabled>Seleccione un Estado Academico</option>
+                  <option value="Aplazado">Aplazado</option>
+                  <option value="Cancelado">Cancelado</option>
+                  <option value="EnFormacion">En Formacion</option>
+                  <option value="RetiroVoluntario">Retiro voluntario</option>
+                  <option value="Condicional">Condicional</option>
+                  <option value="Induccion">Inducción</option>
+                  <option value="ProcesoDecersion">Proceso de decersión</option>
+              </select>
+              
+                <label for="Academico">Estado Académico</label>
+              </div>
+
+              <div class="col-md-4 offset-md-4 text-center mt-3">
+                <button class="btn btn-outline-success">Registrar</button>
+              </div>
+              <div class="col-md-4 offset-md-4 text-center mt-3">
+                <button class="btn btn-outline-success" onclick="window.history.back();">Regresar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

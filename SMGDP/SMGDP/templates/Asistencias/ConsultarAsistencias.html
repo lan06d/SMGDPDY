@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencias de la Ficha {{ ficha.numero }}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .main-content {
+            width: calc(100% - 2cm);
+            height: calc(100vh - 2cm);
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 1cm;
+            padding: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px; /* Espacio entre elementos */
+        }
+
+        .navbar label {
+            margin-right: 10px; /* Espacio entre la etiqueta y el campo de entrada */
+        }
+
+        .navbar input[type="date"] {
+            width: 150px; /* Ajusta el tamaño de los campos de fecha */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar input[type="date"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .navbar button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: #0056b3;
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .attendance-table th, .attendance-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .attendance-table th {
+            background-color: #6c757d;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .attendance-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .conventions {
+            margin-top: 20px;
+            font-size: 0.9em;
+            padding: 10px;
+            background-color: #d6d8db;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .conventions p {
+            margin: 5px 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="flex">
+        <div class="main-content">
+            <!-- Filtro -->
+            <div class="navbar">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div>
+                        <label for="f_inicial">Fecha de inicio:</label>
+                        <input type="date" id="f_inicial" name="f_inicial" required>
+                    </div>
+                    <div>
+                        <label for="f_fin">Fecha final:</label>
+                        <input type="date" id="f_fin" name="f_fin" required>
+                    </div>
+                    <button type="submit">
+                        <i class="fas fa-search"></i> Buscar Asistencias
+                    </button>
+                </form>
+                
+            </div>
+
+            <!-- Tabla -->
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th colspan="7">Asistencias de la Ficha {{ ficha.numero }}</th>
+                    </tr>
+                    <tr>
+                        <th>Aprendiz</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th>Competencia</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aprendiz, asistencias_aprendiz in asistencias.items %}
+                    <tr>
+                        <td rowspan="{{ asistencias_aprendiz|length }}">{{ aprendiz.nombres }} {{ aprendiz.apellidos }}</td>
+                        {% for asistencia in asistencias_aprendiz %}
+                            {% if forloop.first %}
+                                <td>{{ asistencia.fecha }}</td>
+                                <td>{{ asistencia.hora }}</td>
+                                <td>{{ asistencia.estado_asistencia.estado_asistencia }}</td>
+                                <td>{{ asistencia.unidad_programacion.unidad_programacion }}</td>
+                                <td>{{ asistencia.observaciones }}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="{% url 'PreEditarAsistencia' asistencia.id %}">Editar</a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td>{{ asistencia.fecha }}</td>
+                                <td>{{ asistencia.hora }}</td>
+                                <td>{{ asistencia.estado_asistencia.estado_asistencia }}</td>
+                                <td>{{ asistencia.unidad_programacion.unidad_programacion }}</td>
+                                <td>{{ asistencia.observaciones }}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="{% url 'PreEditarAsistencia' asistencia.id %}">Editar</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Convenciones -->
+            <div class="conventions">
+                <p>CONVENCIONES</p>
+                <p>
+                    A: Asistencia | I: Inasistencia sin excusa | IS: Inasistencia sin excusa registrada en Sofia Plus | IE:
+                    Inasistencia con excusa | IES: Inasistencia con excusa registrada en Sofia Plus   <br>
+                    <a href="{% url 'vistaFichasInstUnidadProgramacion' %}" class="sidebar-link">Regresar al Inicio</a>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

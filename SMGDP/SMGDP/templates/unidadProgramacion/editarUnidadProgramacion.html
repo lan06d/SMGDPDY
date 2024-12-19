@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="icon" href="{% static 'logosena.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Unidad de Programación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .full-height {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center full-height">
+    <section class="container w-75 w-md-50">
+        <div class="row border rounded-5 shadow p-4">
+            <h3 class="text-center mb-4">Editar Unidad de Programación</h3>
+
+            <!-- Mensajes de éxito y error -->
+            {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form class="container" method="post" action="{% url 'EditarUnidadProgramacion' unidad.id %}">
+                {% csrf_token %}
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="unidad_programacion" placeholder="Unidad de Programación"
+                                name="unidad_programacion" value="{{ unidad.unidad_programacion }}" required>
+                            <label for="unidad_programacion">Unidad de Programación</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <select name="ficha" class="form-select" id="ficha" required>
+                                <option value="" disabled>Seleccione una ficha</option>
+                                {% for ficha in fichas %}
+                                    <option value="{{ ficha.numero }}" {% if ficha.numero == unidad.ficha.numero %}selected{% endif %}>
+                                        {{ ficha.numero }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="ficha">Ficha</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <select name="usuario" class="form-select" id="usuario" required>
+                                <option value="" disabled>Seleccione un instructor</option>
+                                {% for usuario in usuarios %}
+                                    <option value="{{ usuario.username }}" {% if usuario.id == unidad.usuario.id %}selected{% endif %}>
+                                        {{ usuario.username }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="usuario">Instructor</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-outline-success" type="submit">Guardar Cambios</button>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-outline-secondary" type="button" onclick="window.history.back();">Regresar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

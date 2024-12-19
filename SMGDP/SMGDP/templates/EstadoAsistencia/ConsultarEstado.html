@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% load static %}
+    <link rel="icon" href="{% static 'logosena.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/menuAd.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <title>Barra Lateral con Bootstrap</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Barra Lateral -->
+      <aside id="sidebar">
+        <div class="h-100">
+          <div class="sidebar-logo">
+            <a href="#">SENA METALMECANICO</a>
+          </div>
+          <!-- Navegación de la Barra Lateral -->
+          <ul class="sidebar-nav">
+            <li class="sidebar-header">Gestión de Entidades</li>
+
+            <!-- Usuarios -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#usuarios" aria-expanded="false" aria-controls="usuarios">
+                <i class="fa-solid fa-user pe-2"></i>
+                Usuarios
+              </a>
+              <ul id="usuarios" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaRegistroUsuarios' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaCoordinador' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Aprendices -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#aprendices" aria-expanded="false" aria-controls="aprendices">
+                <i class="fa-solid fa-graduation-cap pe-2"></i>
+                Aprendices
+              </a>
+              <ul id="aprendices" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'RegistroAprendices' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarAprendices' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Trimestres -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#trimestres" aria-expanded="false" aria-controls="trimestres">
+                <i class="fa-solid fa-calendar-alt pe-2"></i>
+                Trimestres
+              </a>
+              <ul id="trimestres" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'RegistroTrimestres' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaConsultarTrimestres' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Programas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#programas" aria-expanded="false" aria-controls="programas">
+                <i class="fa-solid fa-book pe-2"></i>
+                Programas
+              </a>
+              <ul id="programas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaRegistroProgramas' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaProgramas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Jornadas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#jornadas" aria-expanded="false" aria-controls="jornadas">
+                <i class="fa-solid fa-clock pe-2"></i>
+                Jornadas
+              </a>
+              <ul id="jornadas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaRegistroJornadas' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaJornadas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Fichas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#fichas" aria-expanded="false" aria-controls="fichas">
+                <i class="fa-solid fa-folder pe-2"></i>
+                Fichas
+              </a>
+              <ul id="fichas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaRegistroFichas' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'consultaFichas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Estado Académico -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#estado_academico" aria-expanded="false" aria-controls="estado_academico">
+                <i class="fa-solid fa-graduation-cap pe-2"></i>
+                Estado Académico
+              </a>
+              <ul id="estado_academico" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'RegistroEstadoAcademicoSofia' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarEstadoSofia' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Estado de Asistencias -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#estado_asistencias" aria-expanded="false" aria-controls="estado_asistencias">
+                <i class="fa-solid fa-check-circle pe-2"></i>
+                Unidad de Programacion
+              </a>
+              <ul id="estado_asistencias" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistoUnidadProgramacion' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'consultaUnidadProgramacion' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Asistencias -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#asistencias" aria-expanded="false" aria-controls="asistencias">
+                <i class="fa-solid fa-calendar-check pe-2"></i>
+                Asistencias
+              </a>
+              <ul id="asistencias" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistroAsistencias' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarAsistencias' %}" class="sidebar-link">Consultar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistroEstadoAsistencia' %}" class="sidebar-link">Registrar Estado Asistencia</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarEstadoAsistencia' %}" class="sidebar-link">Consultar Estado Asistencias</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Plan de Trabajo -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#plan_trabajo" aria-expanded="false" aria-controls="plan_trabajo">
+                <i class="fa-solid fa-clipboard-list pe-2"></i>
+                Plan de Trabajo
+              </a>
+              <ul id="plan_trabajo" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Juicio Evaluativo -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#juicio_evaluativo" aria-expanded="false" aria-controls="juicio_evaluativo">
+                <i class="fa-solid fa-gavel pe-2"></i>
+                Juicio Evaluativo
+              </a>
+              <ul id="juicio_evaluativo" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Quejas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#quejas" aria-expanded="false" aria-controls="quejas">
+                <i class="fa-solid fa-exclamation-circle pe-2"></i>
+                Quejas
+              </a>
+              <ul id="quejas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'vistaRegistroQuejas' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarQuejas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Evidencia de Quejas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#evidencia_quejas" aria-expanded="false" aria-controls="evidencia_quejas">
+                <i class="fa-solid fa-photo-video pe-2"></i>
+                Evidencia de Quejas
+              </a>
+              <ul id="evidencia_quejas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistrarEvidenciasQuejas' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarEvidenciaQuejas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Observaciones Extras de Quejas -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#observaciones_extra_quejas" aria-expanded="false" aria-controls="observaciones_extra_quejas">
+                <i class="fa-solid fa-comment-dots pe-2"></i>
+                Observaciones Extras de Quejas
+              </a>
+              <ul id="observaciones_extra_quejas" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistroObservacionExtraQueja' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarObservacionesEstrasQuejas' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Novedad Comité -->
+            <li class="sidebar-item">
+              <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#novedad_comite" aria-expanded="false" aria-controls="novedad_comite">
+                <i class="fa-solid fa-people-arrows pe-2"></i>
+                Novedad Comité
+              </a>
+              <ul id="novedad_comite" class="sidebar-dropdown list-unstyled collapse">
+                <li class="sidebar-item">
+                  <a href="{% url 'VistaRegistroNovedadComite' %}" class="sidebar-link">Registrar</a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'ConsultarNovedaComite' %}" class="sidebar-link">Consultar</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Cerrar Sesión -->
+            <li class="sidebar-item">
+              <a href="{% url 'cerrar_sesion' %}" class="sidebar-link">
+                <i class="fa-solid fa-sign-out-alt pe-2"></i>
+                Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Componente Principal -->
+      <!-- Componente Principal -->
+      <div class="main">
+        <nav class="navbar navbar-expand px-3 border-bottom">
+          <!-- Botón para alternar la barra lateral -->
+          <button class="btn bg-success" type="button" data-bs-theme="dark"><span class="navbar-toggler-icon"></span></button>
+          <!-- Formulario de búsqueda -->
+          <form class="search-form d-flex ms-auto" role="search" method="GET" action="">
+            <input class="form-control me-2" type="search" placeholder="Buscar estado de asistencia" name="buscar" value="{{ buscar|default_if_none:'' }}" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </nav>
+
+        <main class="content px-3 py-2">
+          <div class="container mt-5">
+            <!-- Mensaje si no se encuentran resultados -->
+            {% if no_resultados %}
+              <div class="alert alert-warning">No se encontraron estados de asistencia que coincidan con la búsqueda.</div>
+            {% endif %}
+            {% if messages %}
+              <div class="container">
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <!-- Tabla de EstadoAsistencias -->
+            <div class="table-responsive">
+              <h2>Estados de Asistencia</h2>
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>Estado de Asistencia</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for estado in estados %}
+                    <tr id="{{ estado.id }}">
+                      <td>{{ estado.estado_asistencia }}</td>
+                      <td class="text-center">
+                        <a class="btn btn-danger" title="Eliminar" href="{% url 'eliminar_estado_asistencia' estado.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar este Estado? Esta acción no se puede deshacer.');">Eliminar</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Controles de Paginación -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                {% if estados.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?buscar={{ buscar }}&page=1" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?buscar={{ buscar }}&page={{ estados.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                  </li>
+                {% endif %}
+
+                {% for num in estados.paginator.page_range %}
+                  <li class="page-item {% if estados.number == num %}active{% endif %}">
+                    <a class="page-link" href="?buscar={{ buscar }}&page={{ num }}">{{ num }}</a>
+                  </li>
+                {% endfor %}
+
+                {% if estados.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?buscar={{ buscar }}&page={{ estados.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?buscar={{ buscar }}&page={{ estados.paginator.num_pages }}" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </main>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+      <script>
+        const toggler = document.querySelector('.btn')
+        toggler.addEventListener('click', function () {
+          document.querySelector('#sidebar').classList.toggle('collapsed')
+        })
+      </script>
+    </div>
+  </body>
+</html>

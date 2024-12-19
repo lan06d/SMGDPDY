@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .main-content {
+            width: calc(100% - 2cm);
+            height: calc(100vh - 2cm);
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            margin: 1cm;
+            padding: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px; /* Espacio entre elementos */
+        }
+
+        .navbar label {
+            margin-right: 10px; /* Espacio entre la etiqueta y el campo de entrada */
+        }
+
+        .navbar input[type="date"] {
+            width: 150px; /* Ajusta el tamaño de los campos de fecha */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar input[type="date"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .navbar button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: #0056b3;
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .attendance-table th, .attendance-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .attendance-table th {
+            background-color: #6c757d;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .attendance-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .conventions {
+            margin-top: 20px;
+            font-size: 0.9em;
+            padding: 10px;
+            background-color: #d6d8db;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .conventions p {
+            margin: 5px 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <div class="main-content">
+            <table class="attendance-table">
+                <thead>
+                    
+                    <tr>
+                        <th colspan="7"> Ficha {{ ficha.numero }}</th>
+                    </tr>
+                    
+                    <tr>
+                        <th class="header-cell">ITEM</th>
+                        <th class="header-cell">TIPO DE</th>
+                        <th class="header-cell">NÚMERO DE IDENTIFICACIÓN</th>
+                        <th class="header-cell">NOMBRES</th>
+                        <th class="header-cell">APELLIDOS</th>
+                        <th class="header-cell">ESTADO DEL APRENDIZ</th>
+                        
+                        <th class="header-cell">Quejas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aprendiz in aprendices %}
+                    <tr>
+                        <td class="body-cell">{{ forloop.counter }}</td>
+                        <td class="body-cell">TI</td>
+                        <td class="body-cell">{{ aprendiz.no_documento }}</td>
+                        <td class="body-cell">{{ aprendiz.nombres }}</td>
+                        <td class="body-cell">{{ aprendiz.apellidos }}</td>
+                        <td class="body-cell">{{ aprendiz.estado_academico_sofia.estado }}</td>
+                        
+                        <td class="body-cell">
+                            <a href="{% url 'pre_registrar_queja' aprendiz.id %}" class="btn btn-warning">Registrar Queja</a>
+                            <a href="" class="btn btn-warning">Consultar quejas</a>
+                        </td>
+                        
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="conventions">
+                
+                <p>
+                    <a href="{% url 'vistaFichasInstUnidadProgramacion' %}" class="sidebar-link">Regresar al Inicio</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
